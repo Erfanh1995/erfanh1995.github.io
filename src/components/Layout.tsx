@@ -43,21 +43,11 @@ interface Props {
   children: React.ReactNode;
 }
 
-function HideOnScroll(props: { children: ReactElement }) {
-  const trigger = useScrollTrigger();
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {props.children}
-    </Slide>
-  );
-}
-
 const Layout: React.FC<Props> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const theme = useTheme();
 
   const navItems = [
     { 
