@@ -5,11 +5,7 @@ import {
   Card,
   CardContent,
   Chip,
-  Link,
 } from '@mui/material';
-import SchoolIcon from '@mui/icons-material/School';
-import PeopleIcon from '@mui/icons-material/People';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 const Teaching = () => {
   const themeColor = '#E91E63'; // Pink

@@ -6,7 +6,6 @@ import {
   Typography,
   Container,
   Box,
-  Button,
   Fab,
   useScrollTrigger,
   Slide,

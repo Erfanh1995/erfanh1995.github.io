@@ -6,9 +6,7 @@ import {
   CardContent,
   CardMedia,
   Chip,
-  Link,
 } from '@mui/material';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 const NonProfit: React.FC = () => {
   const themeColor = '#00BCD4'; // Cyan
