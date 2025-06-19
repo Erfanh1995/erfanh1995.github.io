@@ -75,13 +75,6 @@ const Teaching = () => {
         tags: ['Undergraduate', 'Core Course'],
     },
     {
-        title: 'Introduction to Computer Science I',
-        semester: 'Spring 2020',
-        institution: 'Tulane University',
-        description: 'Teaching Assistant',
-        tags: ['Undergraduate', 'Core Course'],
-    },
-    {
         title: 'Game Design (Python)',
         semester: 'Summer 2019',
         institution: 'Tulane Pre-college Programs',
