@@ -38,6 +38,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import DownloadIcon from '@mui/icons-material/Download';
 import DescriptionIcon from '@mui/icons-material/Description';
 import SchoolIcon2 from '@mui/icons-material/School';
+import ScienceIcon from '@mui/icons-material/Science';
 
 interface Props {
   children: React.ReactNode;
@@ -70,6 +71,13 @@ const Layout: React.FC<Props> = ({ children }) => {
       icon: <WorkIcon />,
       color: '#FF9800', // Orange
       tooltip: 'My work experience and professional journey',
+    },
+    { 
+      label: 'Research', 
+      path: '/research', 
+      icon: <ScienceIcon />,
+      color: '#673AB7', // Deep Purple
+      tooltip: 'My research areas and topics',
     },
     { 
       label: 'Publications', 

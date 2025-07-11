@@ -6,6 +6,7 @@ import theme from './theme.ts';
 import Layout from './components/Layout.tsx';
 import Home from './pages/Home.tsx';
 import Education from './pages/Education.tsx';
+import Research from './pages/Research.tsx';
 import Professional from './pages/Professional.tsx';
 import Publications from './pages/Publications.tsx';
 import Teaching from './pages/Teaching.tsx';
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/education" element={<Education />} />
+            <Route path="/research" element={<Research />} />
             <Route path="/professional" element={<Professional />} />
             <Route path="/publications" element={<Publications />} />
             <Route path="/teaching" element={<Teaching />} />
