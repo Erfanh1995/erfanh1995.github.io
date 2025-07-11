@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   AppBar,
@@ -7,8 +7,6 @@ import {
   Container,
   Box,
   Fab,
-  useScrollTrigger,
-  Slide,
   Drawer,
   IconButton,
   Avatar,
@@ -20,6 +18,8 @@ import {
   Divider,
   useTheme,
   Tooltip,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -39,6 +39,10 @@ import DownloadIcon from '@mui/icons-material/Download';
 import DescriptionIcon from '@mui/icons-material/Description';
 import SchoolIcon2 from '@mui/icons-material/School';
 import ScienceIcon from '@mui/icons-material/Science';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
+import { useTheme as useAppTheme } from '../theme.ts';
 
 interface Props {
   children: React.ReactNode;
@@ -48,7 +52,10 @@ const Layout: React.FC<Props> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [themeMenuAnchor, setThemeMenuAnchor] = useState<null | HTMLElement>(null);
+  const { themeMode, setThemeMode, isDarkMode } = useAppTheme();
+  const muiTheme = useTheme();
 
   const navItems = [
     { 
@@ -125,6 +132,45 @@ const Layout: React.FC<Props> = ({ children }) => {
     setIsCollapsed(!isCollapsed);
   };
 
+  const handleThemeMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setThemeMenuAnchor(event.currentTarget);
+  };
+
+  const handleThemeMenuClose = () => {
+    setThemeMenuAnchor(null);
+  };
+
+  const handleThemeChange = (mode: 'light' | 'dark' | 'system') => {
+    setThemeMode(mode);
+    handleThemeMenuClose();
+  };
+
+  const getThemeIcon = () => {
+    switch (themeMode) {
+      case 'light':
+        return <LightModeIcon />;
+      case 'dark':
+        return <DarkModeIcon />;
+      case 'system':
+        return <SettingsBrightnessIcon />;
+      default:
+        return <SettingsBrightnessIcon />;
+    }
+  };
+
+  const getThemeTooltip = () => {
+    switch (themeMode) {
+      case 'light':
+        return 'Light mode (click to change)';
+      case 'dark':
+        return 'Dark mode (click to change)';
+      case 'system':
+        return `System mode - ${isDarkMode ? 'Dark' : 'Light'} (click to change)`;
+      default:
+        return 'Theme settings';
+    }
+  };
+
   const actionButtons = [
     {
       icon: <LinkedInIcon />,
@@ -181,6 +227,50 @@ const Layout: React.FC<Props> = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
+          {/* Dark Mode Toggle Button (AppBar, mobile only) */}
+          <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+            <Tooltip title={getThemeTooltip()}>
+              <IconButton
+                color="inherit"
+                onClick={handleThemeMenuOpen}
+                sx={{ 
+                  mr: 2,
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  },
+                }}
+              >
+                {getThemeIcon()}
+              </IconButton>
+            </Tooltip>
+            <Menu
+              anchorEl={themeMenuAnchor}
+              open={Boolean(themeMenuAnchor)}
+              onClose={handleThemeMenuClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+            >
+              <MenuItem onClick={() => handleThemeChange('light')} selected={themeMode === 'light'}>
+                <LightModeIcon sx={{ mr: 1 }} />
+                Light
+              </MenuItem>
+              <MenuItem onClick={() => handleThemeChange('dark')} selected={themeMode === 'dark'}>
+                <DarkModeIcon sx={{ mr: 1 }} />
+                Dark
+              </MenuItem>
+              <MenuItem onClick={() => handleThemeChange('system')} selected={themeMode === 'system'}>
+                <SettingsBrightnessIcon sx={{ mr: 1 }} />
+                System
+              </MenuItem>
+            </Menu>
+          </Box>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 600 }}>
             Erfan Hosseini
           </Typography>
@@ -225,7 +315,9 @@ const Layout: React.FC<Props> = ({ children }) => {
             '& .MuiDrawer-paper': { 
               boxSizing: 'border-box', 
               width: drawerWidth,
-              background: 'linear-gradient(180deg, #f5f5f5 0%, #ffffff 100%)',
+              background: muiTheme.palette.mode === 'dark' 
+                ? 'linear-gradient(180deg, #1C1B1F 0%, #2B2930 100%)'
+                : 'linear-gradient(180deg, #f5f5f5 0%, #ffffff 100%)',
             },
           }}
         >
@@ -321,13 +413,61 @@ const Layout: React.FC<Props> = ({ children }) => {
               width: drawerWidth,
               transition: 'width 0.2s, background 0.3s',
               overflowX: 'hidden',
-              background: 'linear-gradient(180deg, #f5f5f5 0%, #ffffff 100%)',
+              background: muiTheme.palette.mode === 'dark' 
+                ? 'linear-gradient(180deg, #1C1B1F 0%, #2B2930 100%)'
+                : 'linear-gradient(180deg, #f5f5f5 0%, #ffffff 100%)',
               borderRight: '1px solid rgba(0, 0, 0, 0.12)',
             },
           }}
           open
         >
-          <Toolbar />
+          {/* Only dark mode button at the very top */}
+          <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexDirection: 'column', alignItems: 'center', pt: 0, pb: 0 }}>
+            <Tooltip title={getThemeTooltip()}>
+              <IconButton
+                color="inherit"
+                onClick={handleThemeMenuOpen}
+                sx={{
+                  backgroundColor: 'rgba(0,0,0,0.04)',
+                  color: muiTheme.palette.mode === 'dark' ? '#FFD600' : '#333',
+                  mb: 1.5,
+                  mt: 1.5,
+                  '&:hover': {
+                    backgroundColor: 'rgba(0,0,0,0.10)',
+                  },
+                }}
+              >
+                {getThemeIcon()}
+              </IconButton>
+            </Tooltip>
+            <Menu
+              anchorEl={themeMenuAnchor}
+              open={Boolean(themeMenuAnchor)}
+              onClose={handleThemeMenuClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+            >
+              <MenuItem onClick={() => handleThemeChange('light')} selected={themeMode === 'light'}>
+                <LightModeIcon sx={{ mr: 1 }} />
+                Light
+              </MenuItem>
+              <MenuItem onClick={() => handleThemeChange('dark')} selected={themeMode === 'dark'}>
+                <DarkModeIcon sx={{ mr: 1 }} />
+                Dark
+              </MenuItem>
+              <MenuItem onClick={() => handleThemeChange('system')} selected={themeMode === 'system'}>
+                <SettingsBrightnessIcon sx={{ mr: 1 }} />
+                System
+              </MenuItem>
+            </Menu>
+          </Box>
+          {/* Original avatar and name location (blue background) */}
           <Box sx={{ 
             p: 2, 
             display: 'flex', 
@@ -439,7 +579,7 @@ const Layout: React.FC<Props> = ({ children }) => {
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           transition: 'width 0.2s, margin-left 0.2s',
-          background: '#fafafa',
+          background: muiTheme.palette.background.default,
           minHeight: '100vh',
         }}
       >
