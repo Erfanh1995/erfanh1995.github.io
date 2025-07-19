@@ -21,25 +21,49 @@ function App() {
   });
 
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (themeMode === 'system') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Get saved theme mode from localStorage
+    const savedThemeMode = localStorage.getItem('themeMode') as ThemeMode || 'system';
+    
+    if (savedThemeMode === 'system') {
+      // Check if window.matchMedia is available (for SSR compatibility)
+      if (typeof window !== 'undefined' && window.matchMedia) {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+      // Fallback to checking if we're in a dark environment
+      return false;
     }
-    return themeMode === 'dark';
+    return savedThemeMode === 'dark';
   });
 
   useEffect(() => {
     localStorage.setItem('themeMode', themeMode);
     
     if (themeMode === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      setIsDarkMode(mediaQuery.matches);
-      
-      const handleChange = (e: MediaQueryListEvent) => {
-        setIsDarkMode(e.matches);
-      };
-      
-      mediaQuery.addEventListener('change', handleChange);
-      return () => mediaQuery.removeEventListener('change', handleChange);
+      // Ensure window.matchMedia is available
+      if (typeof window !== 'undefined' && window.matchMedia) {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Set initial state
+        setIsDarkMode(mediaQuery.matches);
+        
+        // Add event listener for changes
+        const handleChange = (e: MediaQueryListEvent) => {
+          setIsDarkMode(e.matches);
+        };
+        
+        // Use addEventListener for modern browsers, fallback to addListener for older ones
+        if (mediaQuery.addEventListener) {
+          mediaQuery.addEventListener('change', handleChange);
+          return () => mediaQuery.removeEventListener('change', handleChange);
+        } else {
+          // Fallback for older browsers
+          mediaQuery.addListener(handleChange);
+          return () => mediaQuery.removeListener(handleChange);
+        }
+      } else {
+        // Fallback if matchMedia is not available
+        setIsDarkMode(false);
+      }
     } else {
       setIsDarkMode(themeMode === 'dark');
     }

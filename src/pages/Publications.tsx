@@ -14,6 +14,16 @@ const Publications = () => {
 
   const publicationItems = [
     {
+      title: 'Drawing Reeb Graphs',
+      authors: 'Erin Chambers, Brittany Terese Fasy, Erfan Hosseini Sereshgi, Maarten Löffler',
+      journal: 'The 36th International Workshop on Combinatorial Algorithms (IWOCA 2025)',
+      year: '2025',
+      //description: 'Research on efficient neural network architectures suitable for deployment on resource-constrained edge devices.',
+      doi: '10.1007/978-3-031-98740-3_5',
+      tags: ['Computational Geometry', 'Graph Drawing', 'Crossing Number'],
+      link: 'https://doi.org/10.1007/978-3-031-98740-3_5',
+    },
+    {
       title: 'Roadster: Improved Algorithms for Subtrajectory Clustering and Map Construction',
       authors: 'Kevin Buchin, Maike Buchin, Joachim Gudmundsson, Jorren Hendriks, Erfan Hosseini Sereshgi, Rodrigo I. Silveira, Jorrick Sleijster, Frank Staals and Carola Wenk',
       journal: 'Computers & Geosciences, Volume 196, February 2025',

@@ -314,7 +314,7 @@ const Layout: React.FC<Props> = ({ children }) => {
             display: { xs: 'block', sm: 'none' },
             '& .MuiDrawer-paper': { 
               boxSizing: 'border-box', 
-              width: drawerWidth,
+              width: '280px',
               background: muiTheme.palette.mode === 'dark' 
                 ? 'linear-gradient(180deg, #1C1B1F 0%, #2B2930 100%)'
                 : 'linear-gradient(180deg, #f5f5f5 0%, #ffffff 100%)',
