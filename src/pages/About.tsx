@@ -15,12 +15,18 @@ import EmailIcon from '@mui/icons-material/Email';
 
 const About: React.FC = () => {
   const interests = [
+    'Algorithms and Data Structures',
     'Spatial Algorithms',
     'Computational Geometry',
     'GIS',
-    'Algorithms and Data Structures',
     'Spatial Data Analysis',
     'Navigation',
+    'Pattern Recognition',
+    'Anomaly Detection',
+    'Software Engineering',
+    'Data Analysis',
+    'Machine Learning',
+    'Artificial Intelligence',
   ];
 
   return (
@@ -55,7 +61,7 @@ const About: React.FC = () => {
                 Erfan Hosseini Sereshgi
               </Typography>
               <Typography variant="subtitle1" color="primary" gutterBottom>
-                Graduate Researcher • Tulane University
+                Postdoctoral Fellow • Tulane University
               </Typography>
               <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 2 }}>
                 {[
@@ -99,7 +105,7 @@ const About: React.FC = () => {
                 Biography
               </Typography>
               <Typography variant="body1" paragraph>
-              Highly motivated and results-oriented software developer with a deep passion for research-intensive software engineering and data analysis in navigation, routing and anomaly detection. Demonstrated ability to conduct impactful research, develop scalable algorithms, and implement efficient software solutions in C++, Java and Python. Strong publication record in leading computer science venues and extensive experience in mentoring. Specialized in shape/graph comparison methods and spatial data analysis.             </Typography>
+              Highly motivated and results-oriented software developer with a deep passion for research-intensive software engineering and data analysis in navigation, pattern recognition and anomaly detection. Demonstrated ability to conduct impactful research, develop scalable algorithms, and implement efficient software solutions in C++, Java and Python. Strong publication record in leading computer science venues and extensive experience in mentoring. Specialized in shape/graph comparison methods and spatial data analysis.             </Typography>
               <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
                 Research Interests
               </Typography>
@@ -126,7 +132,7 @@ const About: React.FC = () => {
                 Email: me@erfanhosseini.com
               </Typography>
               <Typography variant="body1">
-                Office: #309 Stanley Thomas Hall
+                Office: Caroline Richardson Building, Room 115
               </Typography>
               <Typography variant="body1">
                 Address: Tulane University, New Orleans, LA

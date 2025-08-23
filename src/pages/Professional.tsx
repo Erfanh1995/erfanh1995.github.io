@@ -11,7 +11,16 @@ import {
 const Professional: React.FC = () => {
   const professionalItems = [
     {
-      title: 'Graduate Researcher',
+      title: 'Postdoctoral Fellow',
+      company: 'The Murphy Institute, Tulane University',
+      period: 'Aug 2025 - Present',
+      description: 'Working on the intersection of computer science and social justice, criminal law and public policy.',
+      image: '/murphy.png',
+      location: 'New Orleans, LA, USA',
+      tags: ['Research', 'Technical Writing', 'NLP', 'Artificial Intelligence', 'Machine Learning'],
+    },
+    {
+      title: 'Graduate Research Assistant',
       company: 'Tulane University',
       period: 'Sep 2021 - May 2025',
       description: 'Published 5+ papers in top venues such as SoCG, WADS, TSAS and ACM SIGSPATIAL. Developed and implemented over 3,000 lines of code for four organizational projects and co-mentored 5 undergraduate researchers.',

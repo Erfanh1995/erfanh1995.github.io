@@ -26,7 +26,7 @@ const NonProfit: React.FC = () => {
       title: 'Team Member',
       organization: 'AIESEC in Amirkabir University of Technology',
       role: 'OutGoing Exchange (OGX)',
-      description: 'Develope new ideas to promote projects and analyse client needs to to make further decisions easier for the local committee.',
+      description: 'Developed new ideas to promote projects and analyze client needs to to make further decisions easier for the local committee.',
       image: '/aiesecinaut.jpg',
       location: 'Tehran, IR',
       period: 'Feb 2017 - Aug 2017',
